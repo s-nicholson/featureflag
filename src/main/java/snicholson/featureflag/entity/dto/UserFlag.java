@@ -7,5 +7,5 @@ import lombok.Data;
 @Builder
 public class UserFlag {
     private final User user;
-    private final FeatureFlag flag;
+    private final String flagName;
 }

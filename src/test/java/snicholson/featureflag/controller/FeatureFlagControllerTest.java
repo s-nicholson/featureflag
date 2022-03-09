@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import snicholson.featureflag.entity.dto.FeatureFlag;
 import snicholson.featureflag.entity.dto.User;
 import snicholson.featureflag.entity.dto.UserFlag;
+import snicholson.featureflag.entity.dto.UserFlagSet;
 import snicholson.featureflag.service.FeatureFlagService;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -53,7 +55,7 @@ class FeatureFlagControllerTest {
             var flagName = "Flag";
             var userFlag = UserFlag.builder()
                     .user(User.builder().userId(userId).build())
-                    .flag(FeatureFlag.builder().name(flagName).build())
+                    .flagName(flagName)
                     .build();
             when(featureFlagService.enableFlag(userId, flagName))
                     .thenReturn(userFlag);
@@ -71,18 +73,16 @@ class FeatureFlagControllerTest {
         @DisplayName("Can retrieve all flags for user")
         void fetchFlags() {
             var userId = 1L;
-            var userFlags = List.of(
-                    UserFlag.builder()
-                            .user(User.builder().userId(userId).build())
-                            .flag(FeatureFlag.builder().name("flagName").build())
-                            .build()
-            );
+            var userFlagSet = UserFlagSet.builder()
+                    .user(User.builder().userId(userId).build())
+                    .activeFlags(Set.of("flagName"))
+                    .build();
             when(featureFlagService.getFlags(userId))
-                    .thenReturn(userFlags);
+                    .thenReturn(userFlagSet);
             var flagResponse = featureFlagController.getFlags(userId);
 
             assertThat(flagResponse.getStatusCode(), is(HttpStatus.OK));
-            assertThat(flagResponse.getBody(), is(userFlags));
+            assertThat(flagResponse.getBody(), is(userFlagSet));
         }
     }
 }

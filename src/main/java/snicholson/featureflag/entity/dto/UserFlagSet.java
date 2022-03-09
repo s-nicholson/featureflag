@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 @Builder
-public class User {
-    private final Long userId;
-    private final String name;
+public class UserFlagSet {
+    private final User user;
+    private final Set<String> activeFlags;
 }

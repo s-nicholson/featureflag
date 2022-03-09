@@ -2,12 +2,10 @@ package snicholson.featureflag.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import snicholson.featureflag.entity.dto.FeatureFlag;
 import snicholson.featureflag.entity.dto.UserFlag;
+import snicholson.featureflag.entity.dto.UserFlagSet;
 import snicholson.featureflag.service.FeatureFlagService;
 
 import java.util.Collection;
@@ -31,12 +29,21 @@ public class FeatureFlagController {
         return ResponseEntity.ok(result);
     }
 
-    public ResponseEntity<UserFlag> enableFlag(long userId, String flagName) {
+    @PatchMapping("/{userId}/{flagName}")
+    public ResponseEntity<UserFlag> enableFlag(
+            @PathVariable
+            final long userId,
+            @PathVariable
+            final String flagName) {
         var result = featureFlagService.enableFlag(userId, flagName);
         return ResponseEntity.ok(result);
     }
 
-    public ResponseEntity<Collection<UserFlag>> getFlags(long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserFlagSet> getFlags(
+            @PathVariable
+            final long userId
+    ) {
         var result = featureFlagService.getFlags(userId);
         return ResponseEntity.ok(result);
     }

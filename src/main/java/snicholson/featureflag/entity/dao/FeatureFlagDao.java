@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "feature_flag")
@@ -24,7 +23,4 @@ public class FeatureFlagDao {
     private String description;
     @Column
     private boolean enabled;
-
-    @ManyToMany(mappedBy="flags")
-    private Set<UserDao> users;
 }
