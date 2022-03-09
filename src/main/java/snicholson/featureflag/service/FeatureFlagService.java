@@ -17,10 +17,9 @@ import snicholson.featureflag.entity.dto.UserFlagSet;
 import snicholson.featureflag.repository.FeatureFlagRepository;
 import snicholson.featureflag.repository.UserRepository;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 public class FeatureFlagService {

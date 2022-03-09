@@ -8,8 +8,6 @@ import snicholson.featureflag.entity.dto.UserFlag;
 import snicholson.featureflag.entity.dto.UserFlagSet;
 import snicholson.featureflag.service.FeatureFlagService;
 
-import java.util.Collection;
-
 @RestController
 @RequestMapping("/flags")
 public class FeatureFlagController {
